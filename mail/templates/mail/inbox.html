@@ -1,0 +1,144 @@
+{% extends "mail/layout.html" %}
+{% load static %}
+
+{% block body %}
+<style>
+    body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+    }
+    .gmail-main {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(60,64,67,.18), 0 1.5px 4px rgba(60,64,67,.10);
+        padding: 36px 28px;
+        min-height: 80vh;
+        margin-top: 36px;
+        max-width: 900px;
+        transition: box-shadow 0.2s;
+    }
+    .gmail-main:hover {
+        box-shadow: 0 12px 40px rgba(60,64,67,.22), 0 2px 8px rgba(60,64,67,.13);
+    }
+    .gmail-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 28px;
+    }
+    .gmail-logo {
+        width: 48px;
+        height: 48px;
+        filter: drop-shadow(0 2px 6px rgba(60,64,67,.18));
+    }
+    .gmail-title {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #d93025;
+        letter-spacing: 1.5px;
+        text-shadow: 0 2px 8px rgba(60,64,67,.08);
+    }
+    .card {
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(60,64,67,.10);
+        border: none;
+    }
+    .btn-danger, .btn-danger:focus {
+        background: linear-gradient(90deg, #d93025 60%, #ea4335 100%);
+        border: none;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(217,48,37,.08);
+        transition: background 0.2s;
+    }
+    .btn-danger:hover {
+        background: linear-gradient(90deg, #b1271b 60%, #ea4335 100%);
+    }
+    .form-label {
+        font-weight: 500;
+        color: #444;
+    }
+    #compose-view .card-title {
+        color: #d93025;
+        font-weight: 700;
+    }
+    /* ایمیل خوانده شده */
+    .list-group-item.read {
+        background: #f2f6fc;
+        color: #888;
+        border-left: 6px solid #e0e0e0;
+        box-shadow: 0 1px 4px rgba(60,64,67,.06);
+        transition: background 0.2s, box-shadow 0.2s;
+    }
+    /* ایمیل خوانده نشده */
+    .list-group-item.unread {
+        background: linear-gradient(90deg, #e8f0fe 60%, #fff 100%);
+        font-weight: bold;
+        color: #1967d2;
+        border-left: 6px solid #1967d2;
+        box-shadow: 0 4px 16px rgba(25,103,210,.13);
+        transition: background 0.2s, box-shadow 0.2s;
+    }
+    .list-group-item.unread:hover, .list-group-item.read:hover {
+        background: #f1f3f4;
+        box-shadow: 0 6px 20px rgba(60,64,67,.13);
+        cursor: pointer;
+    }
+    @media (max-width: 768px) {
+        .gmail-main {
+            padding: 12px 2px;
+            margin-top: 12px;
+        }
+        .gmail-title {
+            font-size: 1.3rem;
+        }
+    }
+</style>
+<div class="container">
+    <div class="gmail-main mx-auto">
+        <div class="gmail-header">
+            <!-- Gmail SVG Icon -->
+            <svg class="gmail-logo" viewBox="0 0 40 40">
+                <g>
+                    <path fill="#EA4335" d="M36.818 32.727V12.273L20 24.545 3.182 12.273v20.454A2.273 2.273 0 0 0 5.455 35h29.09a2.273 2.273 0 0 0 2.273-2.273z"/>
+                    <path fill="#34A853" d="M36.818 7.273A2.273 2.273 0 0 0 34.545 5H5.455a2.273 2.273 0 0 0-2.273 2.273v2.273L20 21.818l16.818-12.272z"/>
+                    <path fill="#FBBC05" d="M3.182 7.273v2.273L20 21.818l16.818-12.272V7.273L20 19.545 3.182 7.273z"/>
+                    <path fill="#4285F4" d="M36.818 7.273L20 19.545 3.182 7.273"/>
+                </g>
+            </svg>
+            <span class="gmail-title">Gmail Clone</span>
+        </div>
+        <div id="emails-view"></div>
+        <div id="compose-view" style="display: none;">
+            <div class="card mt-3 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">New Email</h5>
+                    <form id="compose-form">
+                        <div class="mb-3">
+                            <label class="form-label">From:</label>
+                            <input disabled class="form-control" value="{{ request.user.email }}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">To:</label>
+                            <input id="compose-recipients" class="form-control" placeholder="Recipient email">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Subject:</label>
+                            <input id="compose-subject" class="form-control" placeholder="Subject">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Message:</label>
+                            <textarea id="compose-body" class="form-control" placeholder="Write your email here..."></textarea>
+                        </div>
+                        <input type="submit" class="btn btn-danger w-100" value="Send Email"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="email-detail-view" style="display: none;"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'mail/inbox.js' %}"></script>
+{% endblock %}

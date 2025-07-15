@@ -1,0 +1,113 @@
+/* افکت نمایش ایمیل‌ها */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* استایل لیست ایمیل‌ها */
+.email-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    animation: slideUp 0.5s ease-in-out;
+    background-color: #ffffff;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.email-item.unread {
+    background-color: #f1f9ff;
+    font-weight: bold;
+    border-left: 4px solid #007bff;
+}
+
+.email-item.read {
+    background-color: #e9ecef;
+}
+
+.email-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* استایل دکمه‌های مدیریت ایمیل */
+.email-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-archive, .btn-reply {
+    background-color: #f0ad4e;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-archive:hover, .btn-reply:hover {
+    background-color: #ec971f;
+    transform: scale(1.07);
+}
+
+/* تنظیمات ریسپانسیو */
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .email-item {
+        font-size: 14px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* طراحی فرم ارسال ایمیل */
+#compose-view {
+    background: rgba(255, 255, 255, 0.97);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+textarea {
+    min-height: 300px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s ease-in-out;
+}
+
+textarea:focus {
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+}
+
+/* افکت‌های پویا برای دکمه‌ها */
+button {
+    transition: 0.2s ease-in-out;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* افکت شناور برای دکمه‌ها */
+.btn-primary {
+    background-color: #007bff;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}Vida Mail {% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'mail/styles.css' %}">
+    {% block script %}{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .sidebar-icon {
+            width: 22px;
+            height: 22px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .list-group-item-action {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            font-size: 1.08rem;
+            border-radius: 24px !important;
+            margin-bottom: 6px;
+            transition: background 0.18s, color 0.18s;
+        }
+        .list-group-item-action:hover, .list-group-item-action.active {
+            background: #e8f0fe !important;
+            color: #1967d2 !important;
+        }
+        .text-danger {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <!-- Gmail SVG Icon -->
+                <svg width="32" height="32" viewBox="0 0 40 40" style="margin-right:8px;">
+                    <g>
+                        <path fill="#EA4335" d="M36.818 32.727V12.273L20 24.545 3.182 12.273v20.454A2.273 2.273 0 0 0 5.455 35h29.09a2.273 2.273 0 0 0 2.273-2.273z"/>
+                        <path fill="#34A853" d="M36.818 7.273A2.273 2.273 0 0 0 34.545 5H5.455a2.273 2.273 0 0 0-2.273 2.273v2.273L20 21.818l16.818-12.272z"/>
+                        <path fill="#FBBC05" d="M3.182 7.273v2.273L20 21.818l16.818-12.272V7.273L20 19.545 3.182 7.273z"/>
+                        <path fill="#4285F4" d="M36.818 7.273L20 19.545 3.182 7.273"/>
+                    </g>
+                </svg>
+                <span class="ml-2">Mail Vida</span>
+            </a>
+            <span class="navbar-text ml-auto text-white">
+    Welcome, {{ request.user.email }}
+</span>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-4 fade-in">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 mb-3">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action" id="inbox">
+                        <!-- Inbox SVG -->
+                        <svg class="sidebar-icon" viewBox="0 0 24 24"><path fill="#1967d2" d="M19 3H4.99C3.88 3 3 3.88 3 5v14c0 1.1.88 2 1.99 2H19c1.1 0 2-.9 2-2V5c0-1.12-.9-2-2-2zm0 16H4.99V5H19v14zm-7-3c-1.1 0-2-.9-2-2H5v2c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-2h-5c0 1.1-.9 2-2 2z"/></svg>
+                        Inbox
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" id="sent">
+                        <!-- Sent SVG -->
+                        <svg class="sidebar-icon" viewBox="0 0 24 24"><path fill="#34a853" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                        Sent
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" id="archived">
+                        <!-- Archive SVG -->
+                        <svg class="sidebar-icon" viewBox="0 0 24 24"><path fill="#fbbc05" d="M20.54 5.23l-1.39-1.39C18.93 3.34 18.48 3 18 3H6c-.48 0-.93.34-1.15.84L3.46 5.23C3.17 5.58 3 6.03 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.47-.17-.92-.46-1.27zM12 17c-1.1 0-2-.9-2-2h4c0 1.1-.9 2-2 2zm6-7H6V7h12v3z"/></svg>
+                        Archived
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" id="compose">
+                        <!-- Compose SVG -->
+                        <svg class="sidebar-icon" viewBox="0 0 24 24"><path fill="#ea4335" d="M3 17.25V21h3.75l11.06-11.06-3.75-3.75L3 17.25zm14.71-9.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                        Compose
+                    </a>
+                    <a href="{% url 'logout' %}" class="list-group-item list-group-item-action text-danger">
+                        <!-- Logout SVG -->
+                        <svg class="sidebar-icon" viewBox="0 0 24 24"><path fill="#d93025" d="M16 13v-2H7V8l-5 4 5 4v-3zm3-10H5c-1.1 0-2 .9-2 2v6h2V5h14v14H5v-6H3v6c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+                        Log Out
+                    </a>
+                </div>
+            </div>
+            <!-- Main content -->
+            <div class="col-md-9 col-lg-10">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light text-center py-3 mt-4">
+        <small>© 2025 Mail Vida. All Rights Reserved.</small>
+    </footer>
+</body>
+</html>

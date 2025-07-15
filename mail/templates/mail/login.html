@@ -1,0 +1,93 @@
+{% extends "mail/layout.html" %}
+
+{% block body %}
+<style>
+    .login-bg {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+    }
+    .login-container {
+        max-width: 370px;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(60,64,67,.18), 0 1.5px 4px rgba(60,64,67,.10);
+        background: #fff;
+        padding: 36px 28px;
+        margin-top: 36px;
+        transition: box-shadow 0.2s;
+    }
+    .login-container:hover {
+        box-shadow: 0 12px 40px rgba(60,64,67,.22), 0 2px 8px rgba(60,64,67,.13);
+    }
+    .login-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #d93025;
+        letter-spacing: 1px;
+        margin-bottom: 18px;
+    }
+    .form-control {
+        border-radius: 12px;
+        font-size: 1.08rem;
+        padding: 10px 14px;
+        margin-bottom: 16px;
+        box-shadow: 0 2px 8px rgba(60,64,67,.06);
+        border: 1.5px solid #e0e0e0;
+        transition: border 0.2s;
+    }
+    .form-control:focus {
+        border-color: #1967d2;
+        box-shadow: 0 4px 16px rgba(25,103,210,.13);
+    }
+    .btn-primary, .btn-primary:focus {
+        background: linear-gradient(90deg, #1967d2 60%, #4285f4 100%);
+        border: none;
+        font-weight: 600;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(25,103,210,.08);
+        transition: background 0.2s;
+    }
+    .btn-primary:hover {
+        background: linear-gradient(90deg, #0b57d0 60%, #4285f4 100%);
+    }
+    .login-logo {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 10px;
+        filter: drop-shadow(0 2px 6px rgba(60,64,67,.18));
+    }
+    .alert-danger {
+        border-radius: 12px;
+        font-size: 1rem;
+    }
+</style>
+<div class="login-bg d-flex justify-content-center align-items-center vh-100">
+    <div class="login-container text-center">
+        <!-- Gmail SVG Icon -->
+        <svg class="login-logo" viewBox="0 0 40 40">
+            <g>
+                <path fill="#EA4335" d="M36.818 32.727V12.273L20 24.545 3.182 12.273v20.454A2.273 2.273 0 0 0 5.455 35h29.09a2.273 2.273 0 0 0 2.273-2.273z"/>
+                <path fill="#34A853" d="M36.818 7.273A2.273 2.273 0 0 0 34.545 5H5.455a2.273 2.273 0 0 0-2.273 2.273v2.273L20 21.818l16.818-12.272z"/>
+                <path fill="#FBBC05" d="M3.182 7.273v2.273L20 21.818l16.818-12.272V7.273L20 19.545 3.182 7.273z"/>
+                <path fill="#4285F4" d="M36.818 7.273L20 19.545 3.182 7.273"/>
+            </g>
+        </svg>
+        <div class="login-title">Login</div>
+
+        {% if message %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endif %}
+
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <input autofocus class="form-control" type="email" name="email" placeholder="Email">
+            <input class="form-control" type="password" name="password" placeholder="Password">
+            <input class="btn btn-primary btn-block w-100" type="submit" value="Login">
+        </form>
+
+        <small class="d-block mt-3">
+            Don't have an account?
+            <a href="{% url 'register' %}" class="text-primary font-weight-bold">Register here.</a>
+        </small>
+    </div>
+</div>
+{% endblock %}
