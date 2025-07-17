@@ -9,7 +9,7 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
 
-
+# test model
 class Email(models.Model):
     """Email model representing messages between users."""
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="emails")
