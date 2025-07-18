@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# test user model
+# test user
 class User(AbstractUser):
     """Custom user model in case future extensions are required."""
     email = models.EmailField(unique=True)  # Ensure email uniqueness
